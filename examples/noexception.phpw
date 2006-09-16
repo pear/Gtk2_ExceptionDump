@@ -1,0 +1,9 @@
+<?php
+/**
+*   Example how a normal variable is
+*   displayed with Gtk2_ExceptionDump.
+*/
+require_once 'Gtk2/ExceptionDump.php';
+Gtk2_ExceptionDump::display('hello');
+echo "after the string\n";
+?>

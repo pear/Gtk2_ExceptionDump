@@ -1,0 +1,7 @@
+<?php
+require_once 'Gtk2/ExceptionDump.php';
+Gtk2_ExceptionDump::setupPhpErrorHandler();
+
+trigger_error('Cannot divide by zero', E_USER_ERROR);
+echo "after\n";
+?>

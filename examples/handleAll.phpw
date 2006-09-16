@@ -1,0 +1,38 @@
+<?php
+/**
+*   Example how a PEAR_Error is
+*   displayed with Gtk2_ExceptionDump.
+*/
+require_once 'PEAR.php';
+function a() {
+    return b(true);
+}
+function b($b) {
+    return c::d('yes', 'no', 'cancel');
+}
+class c {
+    function d($one, $two, $three) {
+        PEAR::raiseError('omg! a PEAR_Error has occured!' . "\nand this here is a very very very long text that is used to force the label to wrap itself and take more and more space. we will see how it behaves.");
+        trigger_error('a php error', E_USER_ERROR);
+        throw new Exception('oh! an Exception!');
+    }
+}
+class e {
+    public function __construct() {
+    }
+
+    public function f() {
+        return a();
+    }
+}
+
+require_once 'Gtk2/ExceptionDump.php';
+//we could use Gtk2_ExceptionDump::setupAllHandlers()
+Gtk2_ExceptionDump::setupExceptionHandler();
+Gtk2_ExceptionDump::setupPearErrorHandler();
+Gtk2_ExceptionDump::setupPhpErrorHandler();
+
+$e = new e();
+$e->f();
+echo "bye\n";
+?>

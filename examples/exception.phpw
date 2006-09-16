@@ -1,0 +1,28 @@
+<?php
+/**
+*   Example how an Exception is caught and
+*   displayed with Gtk2_ExceptionDump.
+*/
+require_once 'PEAR.php';
+
+function a() {
+    return b(true);
+}
+function b($b) {
+    return c::d('yes', 'no', 'cancel');
+}
+class c {
+    static function d($one, $two, $three) {
+        throw new Exception('omg! an exception.');
+        return true;
+    }
+}
+
+try {
+    a();
+} catch (Exception $e) {
+    require_once 'Gtk2/ExceptionDump.php';
+    Gtk2_ExceptionDump::display($e);
+    echo "after the exception\n";
+}
+?>
