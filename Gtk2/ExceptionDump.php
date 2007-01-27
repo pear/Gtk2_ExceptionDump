@@ -153,6 +153,11 @@ class Gtk2_ExceptionDump extends GtkWindow
     */
     public static function handlePhpError($errno, $errstr, $errfile = null, $errline = null , $errcontext = array())
     {
+        //this occurs when using @ to silence errors
+        if (error_reporting() == 0) {
+            return;
+        }
+
         $errorNames = array(
             E_ERROR             => 'E_ERROR',
             E_WARNING           => 'E_WARNING',

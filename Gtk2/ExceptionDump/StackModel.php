@@ -80,7 +80,7 @@ class Gtk2_ExceptionDump_StackModel extends GtkTreeStore
                 $nOmitLines--; continue;
             }
 
-            if (count($step['args']) == 0) {
+            if (!isset($step['args']) || count($step['args']) == 0) {
                 $function = $step['function'] . '()';
             } else {
                 $function = $step['function'] . '(...)';
@@ -108,13 +108,15 @@ class Gtk2_ExceptionDump_StackModel extends GtkTreeStore
             ));
 
             $num = 0;
-            foreach ($step['args'] as $arg) {
-                $this->append($parent, array(
-                    $num++,
-                    gettype($arg),
-                    (string)$arg,
-                    $arg
-                ));
+            if (isset($step['args'])) {
+                foreach ($step['args'] as $arg) {
+                    $this->append($parent, array(
+                        $num++,
+                        gettype($arg),
+                        (string)$arg,
+                        $arg
+                    ));
+                }
             }
         }
 
