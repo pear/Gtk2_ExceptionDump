@@ -3,48 +3,53 @@ require_once 'Gtk2/ExceptionDump/InfoBox.php';
 require_once 'Gtk2/ExceptionDump/Stack.php';
 
 /**
-*   Displays an Exception in a GtkWindow.
-*   Supports PHP Exceptions and PEAR_Error objects.
+* Displays an Exception in a GtkWindow.
+* Supports PHP Exceptions and PEAR_Error objects.
 *
-*   Simple example:
-*   $error = new PEAR_Error();
-*   Gtk2_ExceptionDump::display($error);
+* @example
+* $error = new PEAR_Error();
+* Gtk2_ExceptionDump::display($error);
 *
-*   Second example:
-*   Gtk2_ExceptionDump::setupExceptionHandler();
-*   throw new Exception('Exception!');
+* @example
+* Gtk2_ExceptionDump::setupExceptionHandler();
+* throw new Exception('Exception!');
 *
-*   Third example:
-*   Gtk2_ExceptionDump::setupPearErrorHandler();
-*   PEAR::raiserError('Error!');
+* @example
+* Gtk2_ExceptionDump::setupPearErrorHandler();
+* PEAR::raiserError('Error!');
 *
-*   Fourth example:
-*   Gtk2_ExceptionDump::setupPhpErrorHandler();
-*   trigger_error('Oops! A php error', E_USER_ERROR);
+* @example
+* Gtk2_ExceptionDump::setupPhpErrorHandler();
+* trigger_error('Oops! A php error', E_USER_ERROR);
 *
-*   @author Christian Weiske <cweiske@php.net>
+* @category Gtk2
+* @package  Gtk2_ExceptionDump
+* @author   Christian Weiske <cweiske@php.net>
+* @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+* @version  CVS: $Id$
+* @link     http://pear.php.net/package/Gtk2_ExceptionDump
 */
 class Gtk2_ExceptionDump extends GtkWindow
 {
     /**
-    *   The exception that is shown.
-    *   PEAR_Error or Exception.
-    *   @var mixed
+    * The exception that is shown.
+    * PEAR_Error or Exception.
+    * @var mixed
     */
     protected $exception = null;
 
 
 
     /**
-    *   Creates a new ExceptionDump window.
-    *   You still need to show it and run the main loop.
+    * Creates a new ExceptionDump window.
+    * You still need to show it and run the main loop.
     *
-    *   The window can be closed, quitting the main loop and
-    *   continuing running the program OR quitting the script
-    *   with exit status 253
+    * The window can be closed, quitting the main loop and
+    * continuing running the program OR quitting the script
+    * with exit status 253
     *
-    *   @param mixed    $exception      Exception or PEAR_Error object
-    *   @param string   $title          The title for the window
+    * @param mixed  $exception Exception or PEAR_Error object
+    * @param string $title     The title for the window
     */
     public function __construct($exception, $title = null)
     {
@@ -58,14 +63,14 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Creates a new ExceptionDump window, displays it
-    *   and starts its own main loop.
-    *   The window can be closed, quitting the main loop and
-    *   continuing running the program OR quitting the script
-    *   with exit status 253
+    * Creates a new ExceptionDump window, displays it
+    * and starts its own main loop.
+    * The window can be closed, quitting the main loop and
+    * continuing running the program OR quitting the script
+    * with exit status 253
     *
-    *   @param mixed    $exception      Exception or PEAR_Error object
-    *   @param string   $title          (optional) The title for the window
+    * @param mixed  $exception Exception or PEAR_Error object
+    * @param string $title     (optional) The title for the window
     */
     public static function display($exception, $title = null)
     {
@@ -77,15 +82,15 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Sets up the PHP exception handler to call
-    *   Gtk2_ExceptionDump::display() if an exception occurs.
+    * Sets up the PHP exception handler to call
+    * Gtk2_ExceptionDump::display() if an exception occurs.
     *
-    *   This is the safest way to handle *all* uncaught exceptions
-    *   with Gtk2_ExceptionDump. It handles "real" exceptions only,
-    *   not PEAR_Errors.
+    * This is the safest way to handle *all* uncaught exceptions
+    * with Gtk2_ExceptionDump. It handles "real" exceptions only,
+    * not PEAR_Errors.
     *
-    *   Note that the "continue" button doesn't work anymore, since
-    *   the exceptions are handled out of all user php code.
+    * Note that the "continue" button doesn't work anymore, since
+    * the exceptions are handled out of all user php code.
     */
     public static function setupExceptionHandler()
     {
@@ -95,39 +100,41 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Sets up the PEAR Exception handler to call
-    *   Gtk2_ExceptionDump::display() if an PEAR_Error occurs.
+    * Sets up the PEAR Exception handler to call
+    * Gtk2_ExceptionDump::display() if an PEAR_Error occurs.
     *
-    *   While this catches *all* PEAR_Errors, it also catches
-    *   the ones that are handled by php scripts.
+    * While this catches *all* PEAR_Errors, it also catches
+    * the ones that are handled by php scripts.
     */
     public static function setupPearErrorHandler()
     {
         require_once 'PEAR.php';
-        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, array('Gtk2_ExceptionDump', 'display'));
+        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK,
+            array('Gtk2_ExceptionDump', 'display'));
     }//public static function setupPearErrorHandler()
 
 
 
     /**
-    *   Sets the php error handler to use Gtk2_ExceptionDump.
-    *   All catchable PHP errors are displayed here.
+    * Sets the php error handler to use Gtk2_ExceptionDump.
+    * All catchable PHP errors are displayed here.
     *
-    *   Not all errors are handled, only the ones
-    *   defined by error_reporting.
+    * Not all errors are handled, only the ones
+    * defined by error_reporting.
     */
     public static function setupPhpErrorHandler()
     {
-        set_error_handler(array('Gtk2_ExceptionDump', 'handlePhpError'), error_reporting());
+        set_error_handler(array('Gtk2_ExceptionDump', 'handlePhpError'),
+            error_reporting());
     }//public static function setupPhpErrorHandler()
 
 
 
     /**
-    *   Sets up that all errors/exceptions are handled with
-    *   Gtk2_ExceptionDump.
-    *   Calls setupExceptionHandler() and setupPearErrorHandler()
-    *   internally.
+    * Sets up that all errors/exceptions are handled with
+    * Gtk2_ExceptionDump.
+    * Calls setupExceptionHandler() and setupPearErrorHandler()
+    * internally.
     */
     public static function setupAllHandlers()
     {
@@ -139,19 +146,20 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Use Gtk2_ExceptionDump to display a PHP error.
+    * Use Gtk2_ExceptionDump to display a PHP error.
     *
-    *   @param int      $errno      Contains the level of the error raised
-    *   @param string   $errstr     Error message
-    *   @param string   $errfile    Filename that the error was raised in
-    *   @param int      $errline    Line number the error was raised at
-    *   @param array    $errcontext Array that points to the active symbol
-    *                                table at the point the error occurred. In
-    *                                other words, errcontext will contain an
-    *                                array of every variable that existed in
-    *                                the scope the error was triggered in.
+    * @param int    $errno      Contains the level of the error raised
+    * @param string $errstr     Error message
+    * @param string $errfile    Filename that the error was raised in
+    * @param int    $errline    Line number the error was raised at
+    * @param array  $errcontext Array that points to the active symbol
+    *                           table at the point the error occurred. In
+    *                           other words, errcontext will contain an
+    *                           array of every variable that existed in
+    *                           the scope the error was triggered in.
     */
-    public static function handlePhpError($errno, $errstr, $errfile = null, $errline = null , $errcontext = array())
+    public static function handlePhpError($errno, $errstr, $errfile = null,
+                                     $errline = null , $errcontext = array())
     {
         //this occurs when using @ to silence errors
         if (error_reporting() == 0) {
@@ -176,14 +184,16 @@ class Gtk2_ExceptionDump extends GtkWindow
             new Exception($errstr . "\r\n\r\n" . $errfile . '#' . $errline, $errno),
             'PHP Error: ' . $errorNames[$errno]
         );
-    }//public static function handlePhpError($errno, $errstr, $errfile = null, $errline = null , $errcontext = array())
+    }//public static function handlePhpError($errno, $errstr, $errfile = null,
+     // $errline = null , $errcontext = array())
 
 
 
     /**
-    *   Set the exception object.
+    * Set the exception object.
     *
-    *   @param mixed    $exception  The exception to display
+    * @param PEAR_Error|Exception $exception Exception to display
+    * @param mixed                $title     Window title to use
     */
     public function setException($exception, $title = null)
     {
@@ -202,9 +212,10 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Sets the title of the window.
+    * Sets the title of the window.
     *
-    *   @param string   $title      Window title to use
+    * @param PEAR_Error|Exception $exception Exception to display
+    * @param string               $title     Window title to use
     */
     protected function setTitle($exception, $title)
     {
@@ -230,17 +241,18 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Creates the dialog widgets.
+    * Creates the dialog widgets.
     */
     protected function buildDialog()
     {
-        $this->destroySignal = $this->connect_simple('destroy', array($this, 'onQuit'));
+        $this->destroySignal
+            = $this->connect_simple('destroy', array($this, 'onQuit'));
         $this->set_default_size(700, 300);
 
         $this->infobox = new Gtk2_ExceptionDump_InfoBox();
 
         $this->stack = new Gtk2_ExceptionDump_Stack();
-        $scrStack = new GtkScrolledWindow();
+        $scrStack    = new GtkScrolledWindow();
         $scrStack->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
         $scrStack->add($this->stack);
 
@@ -260,16 +272,16 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Returns the box with the Execute/Continue buttons.
+    * Returns the box with the Execute/Continue buttons.
     *
-    *   @return GtkButtonBox    The button box.
+    * @return GtkButtonBox The button box.
     */
     protected function buildContinuationButtonBox()
     {
         $buttons = new GtkHButtonBox();
         $buttons->set_layout(Gtk::BUTTONBOX_END);
 
-        $quit     = GtkButton::new_from_stock(Gtk::STOCK_QUIT);
+        $quit = GtkButton::new_from_stock(Gtk::STOCK_QUIT);
         $quit->connect_simple('clicked', array($this, 'onQuit'));
         $quit->set_flags($quit->flags() + Gtk::CAN_DEFAULT);
         $buttons->add($quit);
@@ -286,16 +298,16 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Returns the box with the Copy button.
+    * Returns the box with the Copy button.
     *
-    *   @return GtkButtonBox    The button box.
+    * @return GtkButtonBox The button box.
     */
     protected function buildActionButtonBox()
     {
         $buttons = new GtkHButtonBox();
         $buttons->set_layout(Gtk::BUTTONBOX_END);
 
-        $copy    = GtkButton::new_from_stock(Gtk::STOCK_COPY);
+        $copy = GtkButton::new_from_stock(Gtk::STOCK_COPY);
         $copy->connect_simple('clicked', array($this, 'onCopy'));
         $buttons->add($copy);
 
@@ -305,11 +317,11 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Creates the error message that the object isn't an
-    *   Exception or a PEAR_Error.
+    * Creates the error message that the object isn't an
+    * Exception or a PEAR_Error.
     *
-    *   @param mixed    $exception  Some variable that isn't an Exception
-    *                                or a PEAR_Error object
+    * @param mixed $exception Some variable that isn't an Exception
+    *                         or a PEAR_Error object
     */
     protected function buildError($exception)
     {
@@ -330,7 +342,7 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Quits the php script with exit status 253.
+    * Quits the php script with exit status 253.
     */
     public function onQuit()
     {
@@ -340,8 +352,8 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Closes the window, quits the main loop
-    *   and continues normal script execution.
+    * Closes the window, quits the main loop
+    * and continues normal script execution.
     */
     public function onContinue()
     {
@@ -355,7 +367,7 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Copies the exception/error as string to the clipboard.
+    * Copies the exception/error as string to the clipboard.
     */
     public function onCopy()
     {
@@ -366,9 +378,9 @@ class Gtk2_ExceptionDump extends GtkWindow
 
 
     /**
-    *   Generates a string representation of the exception.
+    * Generates a string representation of the exception.
     *
-    *   @param mixed    $exception  The exception to convert
+    * @param mixed $exception The exception to convert
     */
     protected static function getExceptionAsString($exception)
     {
@@ -382,9 +394,9 @@ class Gtk2_ExceptionDump extends GtkWindow
             $s[] = ' ' . $exception->getUserInfo();
         }
 
-        $func = $exception instanceof PEAR_Error ? 'getBacktrace' : 'getTrace';
+        $func  = $exception instanceof PEAR_Error ? 'getBacktrace' : 'getTrace';
         $trace = $exception->$func();
-        $s[] = 'Backtrace:';
+        $s[]   = 'Backtrace:';
         foreach ($trace as $id => $step) {
             if (count($step['args']) == 0) {
                 $function = $step['function'] . '()';

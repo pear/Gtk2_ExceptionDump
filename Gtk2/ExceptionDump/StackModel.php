@@ -1,21 +1,27 @@
 <?php
 
 /**
-*   Stack trace list model.
-*   Is used as model for Gtk2_ExceptionDump_Stack class
+* Stack trace list model.
+* Is used as model for Gtk2_ExceptionDump_Stack class
 *
-*   @author Christian Weiske <cweiske@php.net>
+* @category Gtk2
+* @package  Gtk2_ExceptionDump
+* @author   Christian Weiske <cweiske@php.net>
+* @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+* @version  CVS: $Id$
+* @link     http://pear.php.net/package/Gtk2_ExceptionDump
 */
 class Gtk2_ExceptionDump_StackModel extends GtkTreeStore
 {
     /**
-    *   Creates the stack trace tree model.
+    * Creates the stack trace tree model.
     *
-    *   @param mixed    $exception  Exception or PEAR_Error
+    * @param mixed $exception Exception or PEAR_Error
     */
     public function __construct($exception = null)
     {
-        parent::__construct(Gtk::TYPE_LONG, Gtk::TYPE_STRING, GTK::TYPE_STRING, Gtk::TYPE_PHP_VALUE);
+        parent::__construct(Gtk::TYPE_LONG,
+           Gtk::TYPE_STRING, GTK::TYPE_STRING, Gtk::TYPE_PHP_VALUE);
 
         if ($exception !== null) {
             $this->setException($exception);
@@ -25,10 +31,10 @@ class Gtk2_ExceptionDump_StackModel extends GtkTreeStore
 
 
     /**
-    *   Sets and displays the exception.
+    * Sets and displays the exception.
     *
-    *   @param mixed    $exception  Exception or PEAR_Error
-    *   @param int      $nOmitLines Number of stack lines to supress
+    * @param mixed $exception  Exception or PEAR_Error
+    * @param int   $nOmitLines Number of stack lines to supress
     */
     public function setException($exception, $nOmitLines = 0)
     {
@@ -37,7 +43,7 @@ class Gtk2_ExceptionDump_StackModel extends GtkTreeStore
         [1]=>
         array(4) {
             ["file"]=>
-            string(61) "/data/php-gtk/two/Gtk2_ExceptionDump/examples/pear_error.phpw"
+            string(61) "/data/php-gtk/two/Gtk2_ExceptionDump/pear_error.phpw"
             ["line"]=>
             int(7)
             ["function"]=>
@@ -95,7 +101,8 @@ class Gtk2_ExceptionDump_StackModel extends GtkTreeStore
             }
 
             if (isset($step['file'])) {
-                $file = basename($step['file']) . '#' . $step['line'] . '   ' . dirname($step['file']);
+                $file = basename($step['file']) . '#' . $step['line']
+                      . '   ' . dirname($step['file']);
             } else {
                 $file = 'unknown';
             }

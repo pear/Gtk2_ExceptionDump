@@ -1,15 +1,20 @@
 <?php
 /**
-*   Information box with icon and the exception message.
+* Information box with icon and the exception message.
 *
-*   @author Christian Weiske <cweiske@php.net>
+* @category Gtk2
+* @package  Gtk2_ExceptionDump
+* @author   Christian Weiske <cweiske@php.net>
+* @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+* @version  CVS: $Id$
+* @link     http://pear.php.net/package/Gtk2_ExceptionDump
 */
 class Gtk2_ExceptionDump_InfoBox extends GtkHBox
 {
     /**
-    *   Creates a new InfoBox and sets the exception.
+    * Creates a new InfoBox and sets the exception.
     *
-    *   @param mixed    $exception  Exception or PEAR_Error
+    * @param mixed $exception Exception or PEAR_Error
     */
     public function __construct($exception = null)
     {
@@ -23,12 +28,16 @@ class Gtk2_ExceptionDump_InfoBox extends GtkHBox
 
 
     /**
-    *   Sets up the child widgets.
+    * Sets up the child widgets.
     */
     protected function build()
     {
         $stockalign = new GtkAlignment(0, 0, 0, 0);
-        $stockalign->add(GtkImage::new_from_stock(Gtk::STOCK_DIALOG_ERROR, Gtk::ICON_SIZE_DIALOG));
+        $stockalign->add(
+            GtkImage::new_from_stock(
+                Gtk::STOCK_DIALOG_ERROR, Gtk::ICON_SIZE_DIALOG
+            )
+        );
         $this->pack_start($stockalign, false, true);
 
 
@@ -51,9 +60,9 @@ class Gtk2_ExceptionDump_InfoBox extends GtkHBox
 
 
     /**
-    *   Sets and displays the exception.
+    * Sets and displays the exception.
     *
-    *   @param mixed    $exception  Exception or PEAR_Error
+    * @param mixed $exception Exception or PEAR_Error
     */
     public function setException($exception)
     {
@@ -74,13 +83,13 @@ class Gtk2_ExceptionDump_InfoBox extends GtkHBox
 
 
     /**
-    *   Explicitely sets a message to display, not an exception.
-    *   Can be used to tell the user that no exception occured,
-    *   but a normal variable has been passed.
+    * Explicitely sets a message to display, not an exception.
+    * Can be used to tell the user that no exception occured,
+    * but a normal variable has been passed.
     *
-    *   @param string $message  The message to display
-    *   @param string $userinfo User information text that is display
-    *                           when expanding the label.
+    * @param string $message  The message to display
+    * @param string $userinfo User information text that is display
+    *                         when expanding the label.
     */
     public function setMessage($message, $userinfo = '')
     {
