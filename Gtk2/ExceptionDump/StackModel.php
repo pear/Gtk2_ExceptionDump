@@ -20,8 +20,10 @@ class Gtk2_ExceptionDump_StackModel extends GtkTreeStore
     */
     public function __construct($exception = null)
     {
-        parent::__construct(Gtk::TYPE_LONG,
-           Gtk::TYPE_STRING, GTK::TYPE_STRING, Gtk::TYPE_PHP_VALUE);
+        parent::__construct(
+            Gobject::TYPE_LONG, Gobject::TYPE_STRING,
+            Gobject::TYPE_STRING, Gobject::TYPE_PHP_VALUE
+        );
 
         if ($exception !== null) {
             $this->setException($exception);

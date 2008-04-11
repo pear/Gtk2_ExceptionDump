@@ -24,11 +24,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <active>yes</active>
  </lead>
 
- <date>2007-01-27</date>
+ <date>2008-04-11</date>
 
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -37,7 +37,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
  <notes>
-  - Don't show php errors when they are silenced using @
+  Adjust to PHP-Gtk2 stable's version API changes
  </notes>
 
  <contents>
@@ -72,11 +72,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <package>
     <name>Gtk2_VarDump</name>
     <channel>pear.php.net</channel>
-    <min>0.2.0</min>
+    <min>1.0.0</min>
    </package>
    <extension>
     <name>php-gtk</name>
-    <min>2.0.0dev</min>
+    <min>2.0.1</min>
    </extension>
   </required>
  </dependencies>
@@ -84,6 +84,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease/>
 
  <changelog>
+
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-04-1</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+    Adjust to PHP-Gtk2 stable's version API changes
+   </notes>
+  </release>
 
   <release>
    <version>
