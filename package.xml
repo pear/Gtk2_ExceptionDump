@@ -24,10 +24,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <active>yes</active>
  </lead>
 
- <date>2008-04-11</date>
+ <date>2013-11-04</date>
 
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -37,7 +37,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
  <notes>
-  Adjust to PHP-Gtk2 stable's version API changes
+  - Make package.xml validate against xsd
  </notes>
 
  <contents>
@@ -87,6 +87,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
   <release>
    <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-11-04</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+    - Make package.xml validate against xsd
+   </notes>
+  </release>
+
+  <release>
+   <version>
     <release>1.1.0</release>
     <api>1.1.0</api>
    </version>
@@ -94,7 +110,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2008-04-1</date>
+   <date>2008-04-11</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
     Adjust to PHP-Gtk2 stable's version API changes
