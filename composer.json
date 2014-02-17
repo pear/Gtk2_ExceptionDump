@@ -8,7 +8,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Gtk2_ExceptionDump": "./"
+            "Gtk2": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/Gtk2_ExceptionDump",
@@ -23,7 +23,8 @@
     },
     "type": "library",
     "require": {
-        "pear/pear_exception": "*"
+        "pear/pear_exception": "*",
+        "pear/gtk2_vardump": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
