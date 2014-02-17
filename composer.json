@@ -1,0 +1,31 @@
+{
+    "authors": [
+        {
+            "email": "cweiske@php.net",
+            "name": "Christian Weiske",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Gtk2_ExceptionDump": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/Gtk2_ExceptionDump",
+    "include-path": [
+        "./"
+    ],
+    "license": "LGPL",
+    "name": "pear/gtk2_exceptiondump",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Gtk2_ExceptionDump",
+        "source": "https://github.com/pear/Gtk2_ExceptionDump"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
